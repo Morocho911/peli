@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opciones para ver Kung Fu Panda 4</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap');
+
+        body {
+            background-image: linear-gradient(to right, #ff5f6d, #ffc371); /* Fondo degradado */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            color: #fff;
+        }
+        .container {
+            text-align: center;
+            background-image: url('ima.foto.jpg'); /* Fondo del contenedor */
+            background-size: contain; /* Ajusta la imagen al tamaño del contenedor */
+            background-position: center;
+            background-attachment: fixed;
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+        }
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .options {
+            display: block;
+            margin-top: 20px;
+        }
+        .options button {
+            margin: 5px;
+        }
+        /* Estilos para la imagen */
+        #selectedOptions img {
+            max-width: 100px; /* Tamaño máximo */
+            height: auto;
+            margin: 20px auto; /* Espacio entre la imagen y las respuestas */
+            display: block;
+            opacity: 0.7; /* Ajusta la opacidad de la imagen (0.7 significa 70% de opacidad) */
+        }
+        /* Estilos para las respuestas */
+        #selectedOptions p {
+            margin-top: 20px; /* Espacio entre la imagen y las respuestas */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Elige tus opciones para ver Kung Fu Panda 4</h1>
+        <div class="options" id="snacks">
+            <h2>¿Qué deseas comer?</h2>
+            <button onclick="chooseOption('snacks', 'Canchita')">Canchita</button>
+            <button onclick="chooseOption('snacks', 'Papitas')">Papitas</button>
+            <button onclick="chooseOption('snacks', 'Chifles')">Chifles</button>
+            <button onclick="chooseOption('snacks', 'Yoxd')">Yoxd</button>
+        </div>
+
+        <div class="options" id="drinks">
+            <h2>¿Qué deseas tomar?</h2>
+            <button onclick="chooseOption('drinks', 'Gaseosa')">Gaseosa</button>
+            <button onclick="chooseOption('drinks', 'Limonada')">Limonada</button>
+            <button onclick="chooseOption('drinks', 'Tecito')">Tecito</button>
+        </div>
+
+        <div class="options" id="date">
+            <h2>¿Qué fecha deseas ver la película?</h2>
+            <input type="date" id="datepicker">
+        </div>
+
+        <div class="options" id="permission">
+            <h2>¿Permites que manchas vea la peli con nosotros?</h2>
+            <button onclick="choosePermission('Sí')">Sí</button>
+            <button onclick="choosePermission('No')">No</button>
+        </div>
+
+        <div id="selectedOptions" style="margin-top: 30px;">
+            <img src="ima.manchas.jpg" alt="Permitir ver la película contigo">
+        </div>
+    </div>
+
+    <script>
+        const selectedOptions = {
+            snacks: null,
+            drinks: null,
+            date: null,
+            permission: null
+        };
+
+        function chooseOption(category, option) {
+            selectedOptions[category] = option;
+            disableButtons(category);
+            showSelectedOptions();
+        }
+
+        function disableButtons(category) {
+            const buttons = document.querySelectorAll(`#${category} button`);
+            buttons.forEach(button => {
+                button.disabled = true;
+            });
+        }
+
+        function choosePermission(option) {
+            selectedOptions.permission = option;
+            disableButtons('permission');
+            showSelectedOptions();
+        }
+
+        function showSelectedOptions() {
+            const selectedSnack = selectedOptions.snacks ? selectedOptions.snacks : 'Ninguno';
+            const selectedDrink = selectedOptions.drinks ? selectedOptions.drinks : 'Ninguno';
+            const selectedDate = selectedOptions.date ? selectedOptions.date : 'Ninguna';
+            const permission = selectedOptions.permission ? selectedOptions.permission : 'Ninguna';
+            document.getElementById('selectedOptions').innerHTML = `
+                <img src="ima.manchas.jpg" alt="Permitir ver la película contigo">
+                <p>Seleccionaste: ${selectedSnack} y ${selectedDrink}. Fecha de la película: ${selectedDate}</p>
+                <p>Permitir ver la película contigo: ${permission}</p>
+            `;
+        }
+
+        document.getElementById('datepicker').addEventListener('change', function() {
+            selectedOptions.date = this.value;
+            showSelectedOptions();
+        });
+    </script>
+</body>
+</html>

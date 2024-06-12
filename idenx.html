@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación para ver Kung Fu Panda 4</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap');
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #ff5f6d, #ffc371);
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            color: #fff;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+        }
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            margin-top: 20px;
+            position: relative;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            transition: background-color 0.3s ease;
+            position: absolute;
+        }
+        #yesButton {
+            position: static;
+            background-color: #28a745;
+            color: white;
+        }
+        #yesButton:hover {
+            background-color: #218838;
+        }
+        #responseMessage {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            font-weight: bold;
+            color: #000; /* Cambia el color del texto a negro */
+            background: #fff; /* Cambia el fondo a blanco */
+            padding: 15px;
+            border: 2px solid #000; /* Cambia el borde a negro */
+            border-radius: 10px;
+            z-index: 1000;
+        }
+        .options {
+            display: none;
+            margin-top: 20px;
+        }
+        .options button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¿Quieres ver Kung Fu Panda 4 conmigo?</h1>
+        <div class="buttons">
+            <button id="yesButton" onclick="redirectToOptionsPage()">Sí</button>
+            <button id="noButton" onclick="noButtonClicked()">No</button>
+        </div>
+    </div>
+    <div id="responseMessage"></div>
+
+    <script>
+        let noButtonClickCount = 0;
+
+        function redirectToOptionsPage() {
+            window.location.href = 'opciones.html';
+        }
+
+        function noButtonClicked() {
+            noButtonClickCount++;
+            const responseMessage = document.getElementById('responseMessage');
+            if (noButtonClickCount >= 5) {
+                responseMessage.innerHTML = "DEJA DE INTENTAR COSHASUMARE ¿VIENES O QUE?";
+                responseMessage.style.color = '#000'; /* Cambia el color del texto a negro */
+                responseMessage.style.background = '#fff'; /* Cambia el fondo a blanco */
+                responseMessage.style.border = '2px solid #000'; /* Cambia el borde a negro */
+                responseMessage.style.position = 'fixed';
+                responseMessage.style.top = '50%';
+                responseMessage.style.left = '50%';
+                responseMessage.style.transform = 'translate(-50%, -50%)';
+                responseMessage.style.display = 'block';
+            } else {
+                const button = document.getElementById('noButton');
+                const container = document.querySelector('.container');
+                const maxX = container.offsetWidth - button.offsetWidth;
+                const maxY = container.offsetHeight - button.offsetHeight;
+                const x = Math.random() * maxX;
+                const y = Math.random() * maxY;
+                button.style.left = `${x}px`;
+                button.style.top = `${y}px`;
+            }
+        }
+    </script>
+</body>
+</html>
